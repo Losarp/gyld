@@ -15,7 +15,7 @@ const Faq = (props) => {
           </div>
           <button className="accordion">HOW CAN I CONVERT $SCRT TO $sSCRT USING KEPLR WALLET?</button>
           <div className="panel">
-            <p>You can use the guide provided <a href="https://www.patlid.com/posts/guide-how-to-convert-scrt-sscrt-keplr-wallet">here</a>.</p>
+            <p>You can use the guide provided <a target={"_blank"} href="https://www.patlid.com/posts/guide-how-to-convert-scrt-sscrt-keplr-wallet">here</a>.</p>
           </div>
           <button className="accordion">WHAT CAN I DO WITH MY COUNCIL OF GYLD NFT? </button>
           <div className="panel">

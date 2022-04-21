@@ -48,7 +48,7 @@ const Popups = (props) => {
                                 <p>{props.sscrtWrapper}</p>
                             </div>
                         </div>
-                        <div className="popupBtn"><NavLink className="barkbehance" to="https://www.patlid.com/posts/guide-how-to-convert-scrt-sscrt-keplr-wallet">Swap SCRT</NavLink></div>
+                        <div className="popupBtn"><a className="barkbehance" href="https://www.patlid.com/posts/guide-how-to-convert-scrt-sscrt-keplr-wallet">Swap SCRT</a></div>
                     </div>
                 </div>
             </div>
