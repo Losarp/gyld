@@ -13,6 +13,7 @@ const Hero = (props) => {
                     <div className="hero-img-time">
                         <p><span style={{fontWeight:'800'}}>Whitelist minting is now open</span><br/><span style={{fontSize:'18px'}}>(public minting starts at 12 pm UTC)</span></p><br/>
                         <p><span style={{fontSize:'18px'}}>WL Mint limitation - up to 4 NFTs</span></p>
+                        <p><span style={{fontSize:'18px'}}>Total Minted : {props.totalMints}</span></p>
                     </div>
                     <div className="mintPrice">
                         <div className="priceTitle">

@@ -11,6 +11,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import {useLocation} from "react-router-dom";
 import Swal from "sweetalert2";
 //import {getAllNftDetails} from "./components/snip721";
+import { db } from "./firebase";
+import { collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
 
 const chainInfo = {
   client: null,
@@ -54,8 +56,16 @@ function App() {
   //const [amounttoBuy, setAmounttoBuy] = useState(1);
   const [mintVisibleClass, setMintVisibleClass] = useState('');
   const [mintCount, setMintCount] = useState(1);
+  const [totalMints, setTotalMints] = useState(0);
 
   let location = useLocation();
+
+  useEffect(() => {
+    onSnapshot(collection(db, 'legendao'), async (snapshot) => {
+      setTotalMints(snapshot.docs[0].data().mintCount);
+    })
+    console.log(totalMints)
+  }, [totalMints])
 
   useEffect(() => {
     if (location.pathname === '/mycollection') {
@@ -96,6 +106,14 @@ function App() {
       await handleConnect();
     })
   }, []);
+
+  const handleSetCounter = async (count) => {
+    const mint_count_db = doc(db, 'legendao', 'LegendaoMintCounter');
+    await updateDoc(mint_count_db, {
+      mintCount: count
+    })
+    setTotalMints(count);
+  }
 
   const toggleMobileMenu = (menu) => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -549,6 +567,7 @@ function App() {
 
   const handleMint = async (mintCount) => {
 
+
     //use mintCount variable to query the contract for "mintCount" number of mints.
 
     hideMintSuccess();
@@ -594,7 +613,7 @@ function App() {
       );
       //console.log(`resp: ${JSON.stringify(tx)}`);
       console.log(`mint successful`);
-      toggleMintVisible();
+      showMintSuccess()
     } catch (e) {
       console.log(`Failed to mint: ${e}`);
 
@@ -635,7 +654,11 @@ function App() {
         )*/
       }
     }
-    showMintSuccess();
+    const countMsg = {
+      num_tokens: {}
+    }
+    const resultCount = await chainInfo.client.queryContractSmart(chainInfo.nftContract, countMsg)
+    await handleSetCounter(resultCount.num_tokens.count)
     return null;
 
   }
@@ -655,6 +678,7 @@ function App() {
           toggleMintVisible={toggleMintVisible}
           mintCount={mintCount}
           setMintCount={setMintCount}
+          totalMints={totalMints}
       />
   );
 }

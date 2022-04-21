@@ -20,7 +20,11 @@ const MiddleEarth = (props) => {
                     mobileMenuOpen={props.mobileMenuOpen}
                 />
                 <Routes>
-                    <Route strict path="/" element={<Homepage handleMint={props.handleMint}/>} />
+                    <Route strict path="/" element={<Homepage
+                                                        handleMint={props.handleMint}
+                                                        totalMints={props.totalMints}
+                                                    />}
+                    />
                     <Route path="/mycollection" element={<MyCollection nftCollection={props.nftCollection}/>} />
                 </Routes>
                 <Footer />
@@ -41,7 +45,10 @@ const MiddleEarth = (props) => {
 const Homepage = (props) => {
     return (
         <div>
-            <Hero handleMint={props.handleMint}/>
+            <Hero
+                handleMint={props.handleMint}
+                totalMints={props.totalMints}
+            />
             <Services />
             <Roadmap />
             <Faq />
